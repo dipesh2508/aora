@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Image, ScrollView, Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
@@ -32,12 +32,12 @@ export default function App() {
             />
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where creativity meets innovatoin: embark on a journey of limitless
-            exploration with Aora
+            Experience the fusion of creativity and innovation: journey into
+            limitless exploration with Aora.
           </Text>
-          <CustomButton 
+          <CustomButton
             title="Continue with Email"
-            handlePress={() => {}}
+            handlePress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7"
           />
         </View>
