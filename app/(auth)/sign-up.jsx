@@ -6,6 +6,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
 
@@ -18,6 +19,24 @@ const SignUp = () => {
   });
 
   const submit = async () => {
+
+    if(!form.username || !form.email || !form.password){
+      Alert.alert("Error", "Please fill all fields");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+
+      //set it to global state
+      router.replace("/home");
+    } catch(e){
+      Alert.alert("Error", e.message);
+    } finally{
+      setSubmitting(false);
+    }
   }
   return (
     <SafeAreaView className="bg-primary h-full">
