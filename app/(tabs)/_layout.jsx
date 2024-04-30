@@ -1,9 +1,11 @@
 import { Image, View, Text } from "react-native";
 import { Tabs, Redirect } from "expo-router";
 import { icons } from "../../constants";
+import { StatusBar } from "expo-status-bar";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
+    <>
     <View className="flex items-center justify-center gap-2">
       <Image
         source={icon}
@@ -18,6 +20,8 @@ const TabIcon = ({ icon, color, name, focused }) => {
         {name}
       </Text>
     </View>
+    <StatusBar backgroundColor='#161622' style='light' />
+    </>
   );
 };
 
