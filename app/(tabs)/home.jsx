@@ -6,30 +6,16 @@ import {images} from '../../constants'
 import SearchInput from '../../components/SearchInput'
 import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
-import {getAllPosts} from '../../lib/appwrite'
+import {getAllPosts, getLatestPosts} from '../../lib/appwrite'
+import useAppwrite from '../../lib/hooks/useAppwrite'
+import VideoCard from '../../components/VideoCard'
 
 const Home = () => {
 
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const {data: posts, refetch} = useAppwrite(getAllPosts);
+  const {data: latestPosts} = useAppwrite(getLatestPosts);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getAllPosts();
-        setData(response);
-      } catch (error) {
-        Alert.alert("Error", error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  console.log(data);
+  // console.log(posts);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -37,6 +23,7 @@ const Home = () => {
     setRefreshing(true);
 
     //re call videos
+    await refetch();
 
     setRefreshing(false);
 
@@ -44,10 +31,17 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList 
-        data={[{id:1}, {id:2}, {id:3},]}
+        data={posts}
         keyExtractor={(item)=> item.$id}
         renderItem={({item})=>(
-          <Text className="text-3xl text-white">{item.id}</Text>
+          <VideoCard 
+          key={item.$id}
+          title={item.title}
+          thumbnail={item.thumbnail}
+          video={item.video}
+          creator={item.creator.username}
+          avatar={item.creator.avatar}
+          />
   )}
   ListHeaderComponent={()=>(
     <View className="my-6 px-4 space-y-6">
@@ -73,7 +67,7 @@ const Home = () => {
             Latest Videos
           </Text>
 
-          <Trending posts={[{id:1}, {id:2}, {id:3}] ?? []} />
+          <Trending posts={latestPosts ?? []} />
 
         </View>
     </View>
