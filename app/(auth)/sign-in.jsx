@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Alert, Image } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
