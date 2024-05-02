@@ -6,7 +6,7 @@ import {images} from '../../constants'
 import SearchInput from '../../components/SearchInput'
 import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
-import {getAllPosts, getLatestPosts} from '../../lib/appwrite'
+import {getAllPosts, getCurrentUser, getLatestPosts} from '../../lib/appwrite'
 import useAppwrite from '../../lib/hooks/useAppwrite'
 import VideoCard from '../../components/VideoCard'
 
@@ -14,8 +14,10 @@ const Home = () => {
 
   const {data: posts, refetch} = useAppwrite(getAllPosts);
   const {data: latestPosts} = useAppwrite(getLatestPosts);
+  const {data: userData} = useAppwrite(getCurrentUser);
 
   // console.log(posts);
+  console.log(userData)
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -52,7 +54,7 @@ const Home = () => {
           </Text>
 
           <Text className="text-2xl font-psemibold text-gray-100">
-            Dipesh Ranjan
+            {userData.username}
           </Text>
         </View>
         <View className="mt-1.5">
