@@ -31,6 +31,20 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "107e7c39-66a6-445c-8733-021b9d01c98c"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/107e7c39-66a6-445c-8733-021b9d01c98c"
+    }
   }
 }
